@@ -3,6 +3,8 @@ package carlos.weatherapp.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+
 /**
  * Created by Carlos on 16/08/2018.
  */
@@ -10,16 +12,22 @@ import android.os.Parcelable;
 public class Cidade implements Parcelable {
     private int id;
     private String name;
+    private ArrayList<Clima> weather;
+    private Principal main;
 
     private Cidade(Parcel in) {
         id = in.readInt();
         name = in.readString();
+        weather = in.createTypedArrayList(Clima.CREATOR);
+        main = in.readParcelable(Principal.class.getClassLoader());
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeString(name);
+        dest.writeTypedList(weather);
+        dest.writeParcelable(main, flags);
     }
 
     @Override
@@ -53,5 +61,21 @@ public class Cidade implements Parcelable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public ArrayList<Clima> getWeather() {
+        return weather;
+    }
+
+    public void setWeather(ArrayList<Clima> weather) {
+        this.weather = weather;
+    }
+
+    public Principal getMain() {
+        return main;
+    }
+
+    public void setMain(Principal main) {
+        this.main = main;
     }
 }

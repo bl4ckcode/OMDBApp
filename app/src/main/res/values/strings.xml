@@ -1,6 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
-    <string name="app_name">WeatherApp</string>
-    <string name="action_search">Procurar</string>
     <string name="action_favorite">Favoritar</string>
+    <string name="action_search">Procurar</string>
     <string name="action_unfavorite">Desfavoritar</string>
+
+    <string name="app_name">WeatherApp</string>
+
+    <string name="cidade">(Cidade)</string>
+
+    <string name="clima">(Clima)</string>
+
+    <string name="temp">(Temp.)</string>
+
+    <string name="url_current_by_city_id">api.openweathermap.org/data/2.5/weather?id=%1$d</string>
 </resources>
