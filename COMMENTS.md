@@ -26,7 +26,7 @@ Além das bibliotecas nativas de Android, duas bibliotecas principais devem ser 
 
 Alguns controllers tem contato direito com suas respectivas activities.
 
-Alguns elementos de interface podem ser melhorados em termos de dinamicidade do layout (alguns campos possuem tamanho fixo) e organização (o uso de RelativeLayout pode ser interessante na tela de Detalhes por exemplo). Layout esta bem básico.
+Alguns elementos de interface podem ser melhorados em termos de dinamicidade do layout (alguns campos possuem tamanho fixo) e organização (o uso de RelativeLayout pode ser interessante na tela de Detalhes por exemplo). Layout esta bem básico. 
 
 O objeto weather (vetor no JSON) é uma lista de possíveis climas para uma mesma cidade, o aplicativo considera apenas a primeira posição (apenas um clima). Além disso, os tipos de clima não foram mapeados totalmente.
 
