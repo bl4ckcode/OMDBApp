@@ -17,6 +17,7 @@ import java.util.List;
 import carlos.weatherapp.R;
 import carlos.weatherapp.activities.DetalhesActivity;
 import carlos.weatherapp.models.Cidade;
+import carlos.weatherapp.util.Utility;
 
 import static carlos.weatherapp.util.Constantes.ARG_CIDADE;
 
@@ -74,10 +75,7 @@ public class ListaCidadesDetalhadaAdapter extends RecyclerView.Adapter<ListaCida
 
         tvCidade.setText(cidade.getName());
         tvClima.setText(cidade.getWeather().get(0).getMain());
-
-        //Converter Kelvin para Celsius, K = -273.15C
-        String celsius = cidade.getMain().getTemp() - 273.15 + "c";
-        tvTemp.setText(celsius);
+        tvTemp.setText(Utility.converterCelsiusKelvin(cidade.getMain().getTemp()));
 
         trLinha.addView(tvCidade);
         trLinha.addView(tvClima);
@@ -98,6 +96,11 @@ public class ListaCidadesDetalhadaAdapter extends RecyclerView.Adapter<ListaCida
     @Override
     public int getItemCount() {
         return cidadeArrayList.size();
+    }
+
+    public void setCidadeArrayList(List<Cidade> cidadeArrayList) {
+        this.cidadeArrayList = cidadeArrayList;
+        notifyDataSetChanged();
     }
 
 }

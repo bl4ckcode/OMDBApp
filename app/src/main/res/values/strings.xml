@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
     <string name="action_favorite">Favoritar</string>
     <string name="action_search">Procurar</string>
@@ -6,11 +5,31 @@
 
     <string name="app_name">WeatherApp</string>
 
+    <string name="chuvoso">Chuvoso</string>
+    <string name="chuvoso_en">Rain</string>
+
     <string name="cidade">(Cidade)</string>
 
     <string name="clima">(Clima)</string>
 
+    <string name="content_descriptor_icone_clima">Imagem que ilustra o clima</string>
+    <string name="content_descriptor_icone_lista_vazia">Imagem que indica o botão pesquisar</string>
+
+    <string name="detalhes_title">Detalhes de %1$s</string>
+
+    <string name="ensolarado">Ensolarado</string>
+    <string name="ensolarado_en">Sunny</string>
+
+    <string name="mensagem_erro_requisicao_detalhes">"Não foi possível obter os detalhes da cidade, tentando novamente…"</string>
+    <string name="mensagem_lista_cidades_vazia">Parece que você ainda não favoritou nenhuma cidade \n clique no botão acima para favoritar!</string>
+
+    <string name="nublado">Nublado</string>
+    <string name="nublado_en">Clouds</string>
+
     <string name="temp">(Temp.)</string>
+
+    <string name="temperatura_m_xima">Temperatura máxima:</string>
+    <string name="temperatura_min_ma">Temperatura miníma:</string>
 
     <string name="url_current_by_city_id">api.openweathermap.org/data/2.5/weather?id=%1$d</string>
 </resources>

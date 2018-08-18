@@ -6,10 +6,35 @@
     android:orientation="vertical"
     tools:context="carlos.weatherapp.activities.MainActivity">
 
-    <include layout="@layout/toolbar"/>
+    <include layout="@layout/toolbar" />
+
+    <RelativeLayout
+        android:id="@+id/rl_activity_main_lista_vazia"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/iv_main_activity_search"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="@string/content_descriptor_icone_lista_vazia"
+            android:src="@drawable/ic_search"
+            android:tint="@android:color/darker_gray" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_main_activity_search"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="@string/mensagem_lista_cidades_vazia" />
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_main_activity"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 </LinearLayout>
