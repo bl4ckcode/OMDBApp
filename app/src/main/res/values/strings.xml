@@ -18,7 +18,7 @@
     <string name="detalhes_title">Detalhes de %1$s</string>
 
     <string name="ensolarado">Ensolarado</string>
-    <string name="ensolarado_en">Sunny</string>
+    <string name="ensolarado_en">Clear</string>
 
     <string name="mensagem_erro_requisicao_detalhes">"Não foi possível obter os detalhes da cidade, tentando novamente…"</string>
     <string name="mensagem_lista_cidades_vazia">Parece que você ainda não favoritou nenhuma cidade \n clique no botão acima para favoritar!</string>

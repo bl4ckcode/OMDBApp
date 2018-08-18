@@ -27,7 +27,8 @@ public class PesquisarActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
-        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         RecyclerView rvCidades = findViewById(R.id.rv_pesquisar_activity);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -39,14 +40,10 @@ public class PesquisarActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                setResult(RESULT_OK);
                 finish();
                 return true;
             default:

@@ -3,6 +3,7 @@ package carlos.weatherapp.activities;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -50,6 +51,11 @@ public class DetalhesActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setTitle(getString(R.string.detalhes_title, cidade.getName()));
 
+        ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         progressBar = findViewById(R.id.pb_detalhes_activity);
         tvDetalhesActivityCidade = findViewById(R.id.tv_detalhes_activity_cidade);
         tvDetalhesActivityTemp = findViewById(R.id.tv_detalhes_activity_temp);
@@ -79,7 +85,9 @@ public class DetalhesActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                setResult(RESULT_OK);
                 finish();
+                return  true;
             case R.id.action_favorite:
                 detalhesController.atualizarFavorito(cidade, true);
                 setResult(RESULT_OK);
@@ -106,7 +114,7 @@ public class DetalhesActivity extends AppCompatActivity {
 
         tvDetalhesActivityClimaDesc.setText(climaEnum.getIdClima());
         ivDetalhesActivityClima.setImageDrawable(ResourcesCompat.getDrawable(getResources(), climaEnum.getIdIcone(), null));
-        ivDetalhesActivityClima.setImageTintList(ColorStateList.valueOf(climaEnum.getIdCor()));
+        ivDetalhesActivityClima.setColorFilter(climaEnum.getIdCor());
 
         progressBar.setVisibility(View.GONE);
     }
