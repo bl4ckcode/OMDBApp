@@ -27,11 +27,14 @@ public class ListaCidadesAdapter extends RecyclerView.Adapter<ListaCidadesAdapte
     }
 
     class ListaCidadesViewholder extends RecyclerView.ViewHolder {
-        TextView tlCidades;
+        TextView tvCidades;
+        TextView tvCidadesPrimeiraPosicao;
 
         ListaCidadesViewholder(View itemView) {
             super(itemView);
-            tlCidades = itemView.findViewById(R.id.tv_adapter_lista_cidades);
+
+            tvCidades = itemView.findViewById(R.id.tv_adapter_lista_cidades);
+            tvCidadesPrimeiraPosicao = itemView.findViewById(R.id.tv_adapter_lista_cidades_cidade);
         }
     }
 
@@ -44,17 +47,25 @@ public class ListaCidadesAdapter extends RecyclerView.Adapter<ListaCidadesAdapte
 
     @Override
     public void onBindViewHolder(@NonNull final ListaCidadesAdapter.ListaCidadesViewholder holder, int position) {
-        Cidade cidade = cidadeArrayList.get(position);
+        if (position != 0) {
+            Cidade cidade = cidadeArrayList.get(position);
 
-        holder.tlCidades.setText(cidade.getName());
-        holder.tlCidades.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(activity, DetalhesActivity.class);
-                intent.putExtra(ARG_CIDADE, cidadeArrayList.get(holder.getAdapterPosition()));
-                activity.startActivity(intent);
-            }
-        });
+            holder.tvCidadesPrimeiraPosicao.setVisibility(View.GONE);
+            holder.tvCidades.setVisibility(View.VISIBLE);
+
+            holder.tvCidades.setText(cidade.getName());
+            holder.tvCidades.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(activity, DetalhesActivity.class);
+                    intent.putExtra(ARG_CIDADE, cidadeArrayList.get(holder.getAdapterPosition()));
+                    activity.startActivity(intent);
+                }
+            });
+        } else {
+            holder.tvCidadesPrimeiraPosicao.setVisibility(View.VISIBLE);
+            holder.tvCidades.setVisibility(View.GONE);
+        }
     }
 
     @Override

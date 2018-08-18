@@ -17,17 +17,17 @@ import carlos.weatherapp.models.Cidade;
  */
 
 public class Utility {
-    public static void insert(String tableName, ContentValues contentValues, Context context) {
+    public static void insert(ContentValues contentValues, Context context) {
         DatabaseHelper dbHelper = new DatabaseHelper(context);
         SQLiteDatabase database = dbHelper.getWritableDatabase();
-        Log.d("INSERT OPERATION CODE: ", "" + database.insertOrThrow(tableName, null, contentValues));
+        Log.d("INSERT OPERATION CODE: ", "" + database.insertOrThrow(Constantes.TABLE_CIDADE, null, contentValues));
         database.close();
     }
 
     public static void remove(String whereClause, Context context) {
         DatabaseHelper dbHelper = new DatabaseHelper(context);
         SQLiteDatabase database = dbHelper.getWritableDatabase();
-        Log.d("DELETE OPERATION CODE: ", "" + database.delete(Constantes.DATABASE_NAME, whereClause, null));
+        Log.d("DELETE OPERATION CODE: ", "" + database.delete(Constantes.TABLE_CIDADE, whereClause, null));
         database.close();
     }
 
@@ -35,13 +35,15 @@ public class Utility {
         Cidade cidade = null;
         DatabaseHelper dbHelper = new DatabaseHelper(context);
         SQLiteDatabase database = dbHelper.getReadableDatabase();
-        Cursor cursor = database.query(Constantes.TABLE_CIDADE, new String[]{Colunas.ID_CIDADE},
+        Cursor cursor = database.query(Constantes.TABLE_CIDADE, null,
                 Colunas.ID_CIDADE + " = " + idCidade, null, null,
                 null, null);
 
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
             cidade = new Cidade(cursor.getInt(cursor.getColumnIndex(Colunas.ID_CIDADE)),
-                    cursor.getString(cursor.getColumnIndex(Colunas.NOME_CIDADE)));
+                    cursor.getString(cursor.getColumnIndex(Colunas.NOME_CIDADE)),
+                    cursor.getString(cursor.getColumnIndex(Colunas.CLIMA)),
+                    cursor.getString(cursor.getColumnIndex(Colunas.TEMPERATURA)));
         }
 
         cursor.close();
@@ -59,7 +61,9 @@ public class Utility {
 
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
             cidades.add(new Cidade(cursor.getInt(cursor.getColumnIndex(Colunas.ID_CIDADE)),
-                    cursor.getString(cursor.getColumnIndex(Colunas.NOME_CIDADE))));
+                    cursor.getString(cursor.getColumnIndex(Colunas.NOME_CIDADE)),
+                    cursor.getString(cursor.getColumnIndex(Colunas.CLIMA)),
+                    cursor.getString(cursor.getColumnIndex(Colunas.TEMPERATURA))));
         }
 
         cursor.close();
@@ -71,5 +75,10 @@ public class Utility {
     public static String converterCelsiusKelvin(double temperatura) {
         //Converter Kelvin para Celsius, K = -273.15C
         return temperatura - 273.15 + "c";
+    }
+
+    public static double converterKelvinCelsius(int temperatura) {
+        //Converter Celsius para Kelvin, C = 273.15C
+        return temperatura + 273.15;
     }
 }

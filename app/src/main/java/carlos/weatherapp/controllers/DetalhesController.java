@@ -12,9 +12,9 @@ import com.google.gson.Gson;
 
 import carlos.weatherapp.R;
 import carlos.weatherapp.activities.DetalhesActivity;
+import carlos.weatherapp.enums.ClimaEnum;
 import carlos.weatherapp.interfaces.Colunas;
 import carlos.weatherapp.models.Cidade;
-import carlos.weatherapp.util.Constantes;
 import carlos.weatherapp.util.Utility;
 
 public class DetalhesController {
@@ -56,10 +56,15 @@ public class DetalhesController {
             ContentValues contentValues = new ContentValues();
             contentValues.put(Colunas.ID_CIDADE, idCidade);
             contentValues.put(Colunas.NOME_CIDADE, cidade.getName());
+            contentValues.put(Colunas.CLIMA, activity.getString(ClimaEnum.valueOf(activity,
+                    cidade.getWeather().get(0).getMain()).getIdClima()));
+            contentValues.put(Colunas.TEMPERATURA, Utility.converterCelsiusKelvin(cidade.getMain().getTemp()));
 
-            Utility.insert(Constantes.TABLE_CIDADE, contentValues, activity);
+            Utility.insert(contentValues, activity);
         } else {
             Utility.remove(Colunas.ID_CIDADE + " = " + idCidade, activity);
         }
+
+        activity.invalidateOptionsMenu();
     }
 }

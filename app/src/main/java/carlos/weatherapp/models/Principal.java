@@ -3,10 +3,17 @@ package carlos.weatherapp.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import carlos.weatherapp.util.Utility;
+
 public class Principal implements Parcelable {
     private double temp;
     private double temp_min;
     private double temp_max;
+
+    Principal(String temperatura) {
+        int parseTemp = Integer.parseInt(temperatura.substring(0, 2));
+        temp = Utility.converterKelvinCelsius(parseTemp);
+    }
 
     private Principal(Parcel in) {
         temp = in.readDouble();

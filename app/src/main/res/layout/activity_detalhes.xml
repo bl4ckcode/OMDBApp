@@ -8,107 +8,123 @@
 
     <include layout="@layout/toolbar" />
 
-    <TextView
-        android:id="@+id/tv_detalhes_activity_cidade"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:textColor="@android:color/black"
-        android:textSize="40sp"
-        tools:text="Belo Horizonte" />
+    <ProgressBar
+        android:id="@+id/pb_detalhes_activity"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/colorPrimary"
+        android:progressTint="@color/colorPrimary"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/tv_detalhes_activity_temp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:textColor="@android:color/black"
-            android:textSize="60sp"
-            android:textStyle="bold"
-            tools:text="30c" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/iv_detalhes_activity_clima"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:contentDescription="@string/content_descriptor_icone_clima"
-                tools:src="@drawable/ic_temp_rainy"
-                tools:tint="@android:color/holo_blue_light" />
-
-            <TextView
-                android:id="@+id/tv_detalhes_activity_clima_desc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:textColor="@android:color/black"
-                tools:text="Ensolarado" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="80dp"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/tv_detalhes_activity_cidade"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="40sp"
+            tools:text="Belo Horizonte" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="142dp"
+                android:id="@+id/tv_detalhes_activity_temp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
                 android:textColor="@android:color/black"
+                android:textSize="50sp"
                 android:textStyle="bold"
-                android:text="@string/temperatura_m_xima" />
+                tools:text="30c" />
 
-            <TextView
-                android:id="@+id/tv_detalhes_activity_max_temp"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="80dp"
-                android:textColor="@android:color/black"
-                tools:text="40c" />
+                android:orientation="vertical">
 
+                <ImageView
+                    android:id="@+id/iv_detalhes_activity_clima"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/content_descriptor_icone_clima"
+                    android:src="@drawable/ic_temp_sunny"
+                    tools:src="@drawable/ic_temp_rainy"
+                    tools:tint="@android:color/holo_blue_light" />
+
+                <TextView
+                    android:id="@+id/tv_detalhes_activity_clima_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@android:color/black"
+                    tools:text="Ensolarado" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="80dp"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="142dp"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:textStyle="bold"
-                android:text="@string/temperatura_min_ma" />
-
-            <TextView
-                android:id="@+id/tv_detalhes_activity_min_temp"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="80dp"
-                android:textColor="@android:color/black"
-                tools:text="20c" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="142dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/temperatura_m_xima"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_detalhes_activity_max_temp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="80dp"
+                    android:textColor="@android:color/black"
+                    tools:text="40c" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="142dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/temperatura_min_ma"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_detalhes_activity_min_temp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="80dp"
+                    android:textColor="@android:color/black"
+                    tools:text="20c" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -8,7 +8,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import carlos.weatherapp.R;
@@ -25,6 +27,7 @@ public class DetalhesActivity extends AppCompatActivity {
     private Cidade cidade;
     private DetalhesController detalhesController;
 
+    private ProgressBar progressBar;
     private TextView tvDetalhesActivityCidade;
     private TextView tvDetalhesActivityTemp;
     private ImageView ivDetalhesActivityClima;
@@ -47,6 +50,7 @@ public class DetalhesActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setTitle(getString(R.string.detalhes_title, cidade.getName()));
 
+        progressBar = findViewById(R.id.pb_detalhes_activity);
         tvDetalhesActivityCidade = findViewById(R.id.tv_detalhes_activity_cidade);
         tvDetalhesActivityTemp = findViewById(R.id.tv_detalhes_activity_temp);
         ivDetalhesActivityClima = findViewById(R.id.iv_detalhes_activity_clima);
@@ -74,6 +78,8 @@ public class DetalhesActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
             case R.id.action_favorite:
                 detalhesController.atualizarFavorito(cidade, true);
                 setResult(RESULT_OK);
@@ -88,14 +94,20 @@ public class DetalhesActivity extends AppCompatActivity {
     }
 
     public void preencherDetalhes(Cidade cidade) {
+        this.cidade = cidade;
+
         tvDetalhesActivityCidade.setText(cidade.getName());
         tvDetalhesActivityTemp.setText(Utility.converterCelsiusKelvin(cidade.getMain().getTemp()));
         tvDetalhesActivityMaxTemp.setText(Utility.converterCelsiusKelvin(cidade.getMain().getTemp_max()));
         tvDetalhesActivityMinTemp.setText(Utility.converterCelsiusKelvin(cidade.getMain().getTemp_min()));
 
-        ClimaEnum climaEnum = ClimaEnum.valueOf(cidade.getWeather().get(0).getMain());
+        ClimaEnum climaEnum = ClimaEnum.valueOf(this, cidade.getWeather().get(0).getMain());
+        assert climaEnum != null;
+
         tvDetalhesActivityClimaDesc.setText(climaEnum.getIdClima());
         ivDetalhesActivityClima.setImageDrawable(ResourcesCompat.getDrawable(getResources(), climaEnum.getIdIcone(), null));
         ivDetalhesActivityClima.setImageTintList(ColorStateList.valueOf(climaEnum.getIdCor()));
+
+        progressBar.setVisibility(View.GONE);
     }
 }

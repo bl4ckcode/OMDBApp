@@ -9,4 +9,6 @@ import android.provider.BaseColumns;
 public interface Colunas extends BaseColumns {
     String ID_CIDADE = "idCidade";
     String NOME_CIDADE = "nomeCidade";
+    String CLIMA = "clima";
+    String TEMPERATURA = "temperatura";
 }

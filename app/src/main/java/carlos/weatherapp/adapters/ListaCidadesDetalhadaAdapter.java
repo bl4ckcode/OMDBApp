@@ -8,6 +8,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import java.util.List;
 
 import carlos.weatherapp.R;
 import carlos.weatherapp.activities.DetalhesActivity;
+import carlos.weatherapp.activities.MainActivity;
 import carlos.weatherapp.models.Cidade;
 import carlos.weatherapp.util.Utility;
 
@@ -41,6 +43,7 @@ public class ListaCidadesDetalhadaAdapter extends RecyclerView.Adapter<ListaCida
 
         CidadeViewholder(View itemView) {
             super(itemView);
+
             tlCidades = itemView.findViewById(R.id.tl_adapter_cidades);
         }
     }
@@ -56,22 +59,20 @@ public class ListaCidadesDetalhadaAdapter extends RecyclerView.Adapter<ListaCida
     public void onBindViewHolder(@NonNull final CidadeViewholder holder, int position) {
         final Cidade cidade = cidadeArrayList.get(position);
 
-        TableLayout.LayoutParams layoutParams = new TableLayout.LayoutParams();
-        layoutParams.height = TableLayout.LayoutParams.WRAP_CONTENT;
-        layoutParams.width = TableLayout.LayoutParams.WRAP_CONTENT;
+        TableRow.LayoutParams layoutParamsTr = new TableRow.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
 
         float pixel = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, TABLE_ROW_PADDING, activity.getResources().getDisplayMetrics());
 
         TableRow trLinha = new TableRow(activity);
-        trLinha.setLayoutParams(layoutParams);
+        trLinha.setLayoutParams(layoutParamsTr);
         trLinha.setPadding(Math.round(pixel), Math.round(pixel), Math.round(pixel), Math.round(pixel));
 
         TextView tvCidade = new TextView(activity);
-        tvCidade.setLayoutParams(layoutParams);
+        tvCidade.setLayoutParams(layoutParamsTr);
         TextView tvClima = new TextView(activity);
-        tvClima.setLayoutParams(layoutParams);
+        tvClima.setLayoutParams(layoutParamsTr);
         TextView tvTemp = new TextView(activity);
-        tvTemp.setLayoutParams(layoutParams);
+        tvTemp.setLayoutParams(layoutParamsTr);
 
         tvCidade.setText(cidade.getName());
         tvClima.setText(cidade.getWeather().get(0).getMain());
@@ -86,7 +87,7 @@ public class ListaCidadesDetalhadaAdapter extends RecyclerView.Adapter<ListaCida
             public void onClick(View v) {
                 Intent intent = new Intent(activity, DetalhesActivity.class);
                 intent.putExtra(ARG_CIDADE, cidadeArrayList.get(holder.getAdapterPosition()));
-                activity.startActivity(intent);
+                activity.startActivityForResult(intent, MainActivity.REQUEST_DETALHES);
             }
         });
 
@@ -97,10 +98,4 @@ public class ListaCidadesDetalhadaAdapter extends RecyclerView.Adapter<ListaCida
     public int getItemCount() {
         return cidadeArrayList.size();
     }
-
-    public void setCidadeArrayList(List<Cidade> cidadeArrayList) {
-        this.cidadeArrayList = cidadeArrayList;
-        notifyDataSetChanged();
-    }
-
 }

@@ -26,10 +26,12 @@
     <string name="nublado">Nublado</string>
     <string name="nublado_en">Clouds</string>
 
+    <string name="pesquisar_title">Pesquisar</string>
+
     <string name="temp">(Temp.)</string>
 
     <string name="temperatura_m_xima">Temperatura máxima:</string>
     <string name="temperatura_min_ma">Temperatura miníma:</string>
 
-    <string name="url_current_by_city_id">api.openweathermap.org/data/2.5/weather?id=%1$d</string>
+    <string name="url_current_by_city_id">http://api.openweathermap.org/data/2.5/weather?id=%1$d&amp;appid=2bac87e0cb16557bff7d4ebcbaa89d2f</string>
 </resources>

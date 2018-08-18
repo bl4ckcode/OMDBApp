@@ -15,9 +15,13 @@ public class Cidade implements Parcelable {
     private ArrayList<Clima> weather;
     private Principal main;
 
-    public Cidade(int id, String name) {
+    public Cidade(int id, String name, String clima, String temperatura) {
         this.id = id;
         this.name = name;
+
+        weather = new ArrayList<>();
+        weather.add(new Clima(clima));
+        main = new Principal(temperatura);
     }
 
     private Cidade(Parcel in) {

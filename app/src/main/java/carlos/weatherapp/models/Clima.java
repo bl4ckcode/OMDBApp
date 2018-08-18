@@ -7,6 +7,10 @@ public class Clima implements Parcelable {
     private String main;
     private String description;
 
+    Clima(String main) {
+        this.main = main;
+    }
+
     private Clima(Parcel in) {
         main = in.readString();
         description = in.readString();

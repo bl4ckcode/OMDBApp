@@ -1,5 +1,7 @@
 package carlos.weatherapp.enums;
 
+import android.app.Activity;
+
 import carlos.weatherapp.R;
 
 /**
@@ -36,9 +38,9 @@ public enum ClimaEnum {
         return idCor;
     }
 
-    public ClimaEnum valueOf(int idAPI) {
+    public static ClimaEnum valueOf(Activity activity, String idAPI) {
         for (ClimaEnum climaEnum : ClimaEnum.values()) {
-            if (climaEnum.getIdAPI() == idAPI) {
+            if (activity.getString(climaEnum.getIdAPI()).equals(idAPI)) {
                 return climaEnum;
             }
         }

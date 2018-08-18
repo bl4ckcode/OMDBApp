@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onActivityReenter(int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             ArrayList<Cidade> cidades = Utility.obterCidades(this);
 

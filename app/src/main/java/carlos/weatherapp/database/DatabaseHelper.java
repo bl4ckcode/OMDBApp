@@ -20,7 +20,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE Cidade(" +
                 "idCidade INTEGER NOT NULL, " +
                 "nomeCidade varchar(30) NOT NULL, " +
-                "ehFavoritada INTEGER NOT NULL, " +
+                "clima varchar(15) NOT NULL," +
+                "temperatura varchar(15) NOT NULL, " +
                 "CONSTRAINT PK_Cidade PRIMARY KEY (idCidade));");
     }
 
