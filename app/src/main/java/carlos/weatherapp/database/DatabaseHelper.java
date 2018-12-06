@@ -6,10 +6,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import carlos.weatherapp.util.Constantes;
 
-/**
- * Created by Carlos on 17/08/2018.
- */
-
 public class DatabaseHelper extends SQLiteOpenHelper {
     public DatabaseHelper(Context contexto) {
         super(contexto, Constantes.DATABASE_NAME, null, Constantes.DATABASE_VERSION);
@@ -17,12 +13,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE Cidade(" +
-                "idCidade INTEGER NOT NULL, " +
-                "nomeCidade varchar(30) NOT NULL, " +
-                "clima varchar(15) NOT NULL," +
-                "temperatura varchar(15) NOT NULL, " +
-                "CONSTRAINT PK_Cidade PRIMARY KEY (idCidade));");
+        db.execSQL("CREATE TABLE FilmesResumidos(" +
+                "omdbId varchar NOT NULL, " +
+                "Title varchar NOT NULL, " +
+                "Year INTEGER NOT NULL," +
+                "Poster varchar NOT NULL, " +
+                "CONSTRAINT PK_OMBD_ID PRIMARY KEY (omdbId));");
+
+        db.execSQL("CREATE TABLE Filmes(" +
+                "omdbId varchar NOT NULL, " +
+                "Title varchar NOT NULL, " +
+                "Year INTEGER NOT NULL," +
+                "Released varchar(15) NOT NULL, " +
+                "Runtime varchar(15) NOT NULL, " +
+                "Genre varchar NOT NULL, " +
+                "Director varchar NOT NULL, " +
+                "Actors varchar NOT NULL, " +
+                "Plot varchar NOT NULL, " +
+                "Awards varchar NOT NULL, " +
+                "Poster varchar NOT NULL, " +
+                "CONSTRAINT PK_OMBD_ID PRIMARY KEY (omdbId));");
     }
 
     @Override

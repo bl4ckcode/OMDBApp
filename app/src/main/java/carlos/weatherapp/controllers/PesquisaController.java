@@ -1,6 +1,15 @@
 package carlos.weatherapp.controllers;
 
+import android.widget.Toast;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
@@ -10,51 +19,45 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 
+import carlos.weatherapp.R;
 import carlos.weatherapp.activities.PesquisarActivity;
-import carlos.weatherapp.models.Cidade;
-
-/**
- * Created by Carlos on 17/08/2018.
- */
+import carlos.weatherapp.models.MovieModel;
+import carlos.weatherapp.models.SearchModel;
+import carlos.weatherapp.models.ShortMovieModel;
 
 public class PesquisaController {
-    private PesquisarActivity activity;
+    private PesquisarActivity pesquisarActivity;
 
     public PesquisaController(PesquisarActivity activity) {
-        this.activity = activity;
+        this.pesquisarActivity = activity;
     }
 
-    public ArrayList<Cidade> obterCidades() {
-        ArrayList<Cidade> cidades = new ArrayList<>();
+    public void buscarFilmes(final String title) {
+        RequestQueue queue = Volley.newRequestQueue(pesquisarActivity);
+        String url = pesquisarActivity.getString(R.string.url_title_search, title);
 
-        try {
-            InputStream inputStream = activity.getAssets().open("city.list.json");
-            int size = inputStream.available();
-            byte[] buffer = new byte[size];
-            inputStream.read(buffer);
-            inputStream.close();
-            cidades = parseJSON(new String(buffer, "UTF-8"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        StringRequest stringRequest = new StringRequest(url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Gson gson = new GsonBuilder()
+                                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
+                                .create();
+                        SearchModel searchModelList = gson.fromJson(response, SearchModel.class);
+                        pesquisarActivity.preencherLista(searchModelList.getSearch());
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(pesquisarActivity, pesquisarActivity.getString(R.string.mensagem_erro_requisicao_pesquisa),
+                                Toast.LENGTH_SHORT).show();
+                        buscarFilmes(title);
+                    }
+                });
 
-        return cidades;
-    }
-
-    private ArrayList<Cidade> parseJSON(String json) {
-        ArrayList<Cidade> cidades = new ArrayList<>();
-
-        try {
-            JSONObject jsonObject = new JSONObject(json);
-            JSONArray jsonArray = jsonObject.getJSONArray("data");
-            for(int i = 0; i < jsonArray.length(); i++) {
-                cidades.add(new Gson().fromJson(jsonArray.get(i).toString(), Cidade.class));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return cidades;
+        queue.add(stringRequest);
     }
 }

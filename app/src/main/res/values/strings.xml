@@ -1,37 +1,22 @@
 <resources>
-    <string name="action_favorite">Favoritar</string>
+    <string name="action_favorite">Salvar</string>
     <string name="action_search">Procurar</string>
-    <string name="action_unfavorite">Desfavoritar</string>
+    <string name="action_unfavorite">Excluir</string>
 
-    <string name="app_name">WeatherApp</string>
+    <string name="app_name">Zup Omdb App</string>
 
-    <string name="chuvoso">Chuvoso</string>
-    <string name="chuvoso_en">Rain</string>
+    <string name="content_descriptor_icone_clima">Imagem que representa o poster do filme</string>
 
-    <string name="cidade">(Cidade)</string>
+    <string name="detalhes_title">%1$s (%1$d)</string>
 
-    <string name="clima">(Clima)</string>
+    <string name="mensagem_erro_requisicao_pesquisa">Não foi possível resultados para este filme, tentando novamente…</string>
+    <string name="mensagem_erro_requisicao_detalhes">Não foi possível obter os detalhes do filme, tentando novamente…</string>
+    <string name="mensagem_lista_filmes_vazia">Parece que você ainda não salvou nenhum filme…</string>
 
-    <string name="content_descriptor_icone_clima">Imagem que ilustra o clima</string>
-    <string name="content_descriptor_icone_lista_vazia">Imagem que indica o botão pesquisar</string>
-
-    <string name="detalhes_title">Detalhes de %1$s</string>
-
-    <string name="ensolarado">Ensolarado</string>
-    <string name="ensolarado_en">Clear</string>
-
-    <string name="mensagem_erro_requisicao_detalhes">"Não foi possível obter os detalhes da cidade, tentando novamente…"</string>
-    <string name="mensagem_lista_cidades_vazia">Parece que você ainda não favoritou nenhuma cidade \n clique no botão acima para favoritar!</string>
-
-    <string name="nublado">Nublado</string>
-    <string name="nublado_en">Clouds</string>
+    <string name="search_hint">Digite o título do filme…</string>
 
     <string name="pesquisar_title">Pesquisar</string>
 
-    <string name="temp">(Temp.)</string>
-
-    <string name="temperatura_m_xima">Temperatura máxima:</string>
-    <string name="temperatura_min_ma">Temperatura miníma:</string>
-
-    <string name="url_current_by_city_id">http://api.openweathermap.org/data/2.5/weather?id=%1$d&amp;appid=2bac87e0cb16557bff7d4ebcbaa89d2f</string>
+    <string name="url_title_search">http://www.omdbapi.com/?s=%1$s&amp;apikey=c7a0fb60</string>
+    <string name="url_get_movie">http://www.omdbapi.com/?i=%1$s&amp;apikey=c7a0fb60</string>
 </resources>

@@ -12,59 +12,68 @@ import com.google.gson.Gson;
 
 import carlos.weatherapp.R;
 import carlos.weatherapp.activities.DetalhesActivity;
-import carlos.weatherapp.enums.ClimaEnum;
 import carlos.weatherapp.interfaces.Colunas;
-import carlos.weatherapp.models.Cidade;
+import carlos.weatherapp.models.MovieModel;
+import carlos.weatherapp.util.Constantes;
 import carlos.weatherapp.util.Utility;
 
 public class DetalhesController {
-    private DetalhesActivity activity;
+    private DetalhesActivity detalhesActivity;
 
     public DetalhesController(DetalhesActivity activity) {
-        this.activity = activity;
+        this.detalhesActivity = activity;
     }
 
-    public void obterDetalhesCidade(final int idCidade) {
-        RequestQueue queue = Volley.newRequestQueue(activity);
-        String url = activity.getString(R.string.url_current_by_city_id, idCidade);
+    public void obterDetalhesFilme(final String imbdId) {
+        RequestQueue queue = Volley.newRequestQueue(detalhesActivity);
+        String url = detalhesActivity.getString(R.string.url_get_movie, imbdId);
 
         StringRequest stringRequest = new StringRequest(url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Gson gson = new Gson();
-                        Cidade cidade = gson.fromJson(response, Cidade.class);
-                        activity.preencherDetalhes(cidade);
+                        MovieModel movieModel = gson.fromJson(response, MovieModel.class);
+                        detalhesActivity.preencherDetalhes(movieModel);
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(activity, activity.getString(R.string.mensagem_erro_requisicao_detalhes),
+                        Toast.makeText(detalhesActivity, detalhesActivity.getString(R.string.mensagem_erro_requisicao_detalhes),
                                 Toast.LENGTH_SHORT).show();
-                        obterDetalhesCidade(idCidade);
+                        obterDetalhesFilme(imbdId);
                     }
                 });
 
         queue.add(stringRequest);
     }
 
-    public void atualizarFavorito(Cidade cidade, boolean favoritar) {
-        int idCidade = cidade.getId();
+    public void inserirFilme(MovieModel movieModel) {
+        ContentValues contentValues = new ContentValues();
 
-        if (favoritar) {
-            ContentValues contentValues = new ContentValues();
-            contentValues.put(Colunas.ID_CIDADE, idCidade);
-            contentValues.put(Colunas.NOME_CIDADE, cidade.getName());
-            contentValues.put(Colunas.CLIMA, activity.getString(ClimaEnum.valueOf(activity,
-                    cidade.getWeather().get(0).getMain()).getIdClima()));
-            contentValues.put(Colunas.TEMPERATURA, Utility.converterCelsiusKelvin(cidade.getMain().getTemp()));
+        contentValues.put(Colunas.IMDB_ID, movieModel.getImdbID());
+        contentValues.put(Colunas.TITLE, movieModel.getTitle());
+        contentValues.put(Colunas.YEAR, movieModel.getYear());
+        contentValues.put(Colunas.POSTER, movieModel.getPoster());
 
-            Utility.insert(contentValues, activity);
-        } else {
-            Utility.remove(Colunas.ID_CIDADE + " = " + idCidade, activity);
-        }
+        Utility.insert(Constantes.TABLE_FILMES_RESUMIDOS, contentValues, detalhesActivity);
 
-        activity.invalidateOptionsMenu();
+        contentValues.put(Colunas.RELEASED, movieModel.getYear());
+        contentValues.put(Colunas.RUNTIME, movieModel.getYear());
+        contentValues.put(Colunas.GENRE, movieModel.getYear());
+        contentValues.put(Colunas.DIRECTOR, movieModel.getYear());
+        contentValues.put(Colunas.ACTORS, movieModel.getYear());
+        contentValues.put(Colunas.PLOT, movieModel.getYear());
+        contentValues.put(Colunas.AWARDS, movieModel.getYear());
+
+        Utility.insert(Constantes.TABLE_FILMES, contentValues, detalhesActivity);
+
+        detalhesActivity.invalidateOptionsMenu();
+    }
+
+    public void removerFilme(String imdbID) {
+        Utility.remove(Colunas.IMDB_ID + " = " + imdbID, detalhesActivity);
+        detalhesActivity.invalidateOptionsMenu();
     }
 }

@@ -8,8 +8,22 @@
 
     <include layout="@layout/toolbar" />
 
+    <EditText
+        android:id="@+id/edtText_pesquisar_activity"
+        android:hint="@string/search_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/background_grey"
+        android:orientation="vertical" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_pesquisar_activity"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </LinearLayout>

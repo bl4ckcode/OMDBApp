@@ -1,7 +1,10 @@
 package carlos.weatherapp.activities;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,27 +13,34 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
+import com.yarolegovich.discretescrollview.DiscreteScrollView;
+
+import java.io.File;
+import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.List;
 
 import carlos.weatherapp.R;
-import carlos.weatherapp.adapters.ListaCidadesDetalhadaAdapter;
-import carlos.weatherapp.models.Cidade;
-import carlos.weatherapp.util.Utility;
+import carlos.weatherapp.adapters.CarouselAdapter;
+import carlos.weatherapp.adapters.ListaFilmesAdapter;
+import carlos.weatherapp.controllers.MainController;
+import carlos.weatherapp.models.ShortMovieModel;
 
 import static carlos.weatherapp.util.Constantes.POSICAO_MENU_PESQUISAR;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CarouselAdapter.OnItemClicked,
+    ListaFilmesAdapter.OnItemClicked {
     public static final int REQUEST_PESQUISA = 0;
     public static final int REQUEST_DETALHES = 1;
 
-    private ListaCidadesDetalhadaAdapter listaCidadesDetalhadaAdapter;
-
-    private RelativeLayout rlListaVazia;
-    private RecyclerView rvCidades;
+    private MainController mainController;
+    private CarouselAdapter carouselAdapter;
+    private ListaFilmesAdapter listaFilmesAdapter;
+    private DiscreteScrollView picker;
+    private RecyclerView rvFilmes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,37 +56,22 @@ public class MainActivity extends AppCompatActivity {
 
         actionBar.setHomeButtonEnabled(true);
 
-        rvCidades = findViewById(R.id.rv_main_activity);
-        rlListaVazia = findViewById(R.id.rl_activity_main_lista_vazia);
+        picker = findViewById(R.id.picker);
+        rvFilmes = findViewById(R.id.rv_main_activity);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        rvCidades.setLayoutManager(layoutManager);
+        carouselAdapter = new CarouselAdapter(this);
+        listaFilmesAdapter = new ListaFilmesAdapter(this);
 
-        ArrayList<Cidade> cidades = Utility.obterCidades(this);
-        if (!cidades.isEmpty()) {
-            listaCidadesDetalhadaAdapter = new ListaCidadesDetalhadaAdapter(this,
-                    cidades);
-            rvCidades.setAdapter(listaCidadesDetalhadaAdapter);
-        } else {
-            rlListaVazia.setVisibility(View.VISIBLE);
-        }
+        mainController = new MainController(this);
+        mainController.buscarFilmesResumidos();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            ArrayList<Cidade> cidades = Utility.obterCidades(this);
+        if (resultCode == RESULT_OK)
+            if (requestCode == REQUEST_PESQUISA) {
 
-            if (cidades.isEmpty()) {
-                rlListaVazia.setVisibility(View.VISIBLE);
-            } else {
-                rlListaVazia.setVisibility(View.GONE);
             }
-
-            listaCidadesDetalhadaAdapter = new ListaCidadesDetalhadaAdapter(this,
-                    cidades);
-            rvCidades.setAdapter(listaCidadesDetalhadaAdapter);
-        }
     }
 
     @Override
@@ -97,5 +92,34 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void preencherCarrousel(ArrayList<ShortMovieModel> filmesResumidos) {
+        List<Bitmap> data = new ArrayList<>();
+
+        for(ShortMovieModel shortMovieModel : filmesResumidos) {
+            try {
+                data.add(BitmapFactory.decodeFile(mainController.retornarCaminhoImagem(shortMovieModel.getPoster())));
+            } catch (IOException|NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+        }
+
+        carouselAdapter.setData(data);
+        picker.setAdapter(carouselAdapter);
+
+        listaFilmesAdapter.setMovieArrayList(filmesResumidos);
+        rvFilmes.setLayoutManager(new LinearLayoutManager(this));
+        rvFilmes.setAdapter(listaFilmesAdapter);
+    }
+
+    @Override
+    public void onCarouselItemClicked(int positon) {
+        // IR PARA DETALHES
+    }
+
+    @Override
+    public void onRecyclerViewItemClicked(int positon) {
+        // AJUSTAR CAROUSEL
     }
 }

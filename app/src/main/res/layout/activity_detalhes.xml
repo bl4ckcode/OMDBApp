@@ -1,130 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".activities.DetalhesActivity">
-
-    <include layout="@layout/toolbar" />
-
-    <ProgressBar
-        android:id="@+id/pb_detalhes_activity"
-        android:layout_width="50dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:backgroundTint="@color/colorPrimary"
-        android:progressTint="@color/colorPrimary"
-        android:visibility="gone"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_detalhes_activity_cidade"
+        <include layout="@layout/toolbar" />
+
+        <ProgressBar
+            android:id="@+id/pb_detalhes_activity"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/colorPrimary"
+            android:progressTint="@color/colorPrimary"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/poster_detalhes_activity"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:textColor="@android:color/black"
-            android:textSize="40sp"
-            tools:text="Belo Horizonte" />
+            android:layout_height="150dp"
+            android:layout_margin="20dp"
+            android:contentDescription="@string/content_descriptor_icone_clima" />
 
         <LinearLayout
+            android:id="@+id/ll_descricao_detalhes_activity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_detalhes_activity_temp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:textColor="@android:color/black"
-                android:textSize="50sp"
-                android:textStyle="bold"
-                tools:text="30c" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="80dp"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/iv_detalhes_activity_clima"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_gravity="center"
-                    android:contentDescription="@string/content_descriptor_icone_clima"
-                    android:src="@drawable/ic_temp_sunny"
-                    tools:src="@drawable/ic_temp_rainy"
-                    tools:tint="@android:color/holo_blue_light" />
-
-                <TextView
-                    android:id="@+id/tv_detalhes_activity_clima_desc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@android:color/black"
-                    tools:text="Ensolarado" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
             android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/sinopse_title_detalhes_activity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="142dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/temperatura_m_xima"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/sinopse_detalhes_activity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tv_detalhes_activity_max_temp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="80dp"
-                    android:textColor="@android:color/black"
-                    tools:text="40c" />
+        <LinearLayout
+            android:id="@+id/ll_ano_detalhes_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical">
 
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/ano_title_detalhes_activity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="142dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/temperatura_min_ma"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/ano_detalhes_activity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tv_detalhes_activity_min_temp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="80dp"
-                    android:textColor="@android:color/black"
-                    tools:text="20c" />
-            </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_duracao_detalhes_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/duracao_title_detalhes_activity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/duracao_detalhes_activity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_genero_detalhes_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/genero_title_detalhes_activity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/genero_detalhes_activity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_diretores_detalhes_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/diretores_title_detalhes_activity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/diretores_detalhes_activity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_atores_detalhes_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/atores_title_detalhes_activity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/atores_detalhes_activity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_premiacoes_detalhes_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/premiacoes_title_detalhes_activity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/premiacoes_detalhes_activity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</ScrollView>

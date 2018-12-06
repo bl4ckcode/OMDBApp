@@ -1,8 +1,6 @@
 package carlos.weatherapp.activities;
 
-import android.content.res.ColorStateList;
 import android.os.Bundle;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,31 +8,40 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import carlos.weatherapp.R;
 import carlos.weatherapp.controllers.DetalhesController;
-import carlos.weatherapp.enums.ClimaEnum;
-import carlos.weatherapp.models.Cidade;
+import carlos.weatherapp.models.MovieModel;
 import carlos.weatherapp.util.Constantes;
 import carlos.weatherapp.util.Utility;
 
-import static carlos.weatherapp.util.Constantes.POSICAO_MENU_DESFAVORITAR;
-import static carlos.weatherapp.util.Constantes.POSICAO_MENU_FAVORITAR;
+import static carlos.weatherapp.util.Constantes.POSICAO_MENU_EXCLUIR;
+import static carlos.weatherapp.util.Constantes.POSICAO_MENU_SALVAR;
 
 public class DetalhesActivity extends AppCompatActivity {
-    private Cidade cidade;
+
+    private MovieModel filme;
+
     private DetalhesController detalhesController;
 
     private ProgressBar progressBar;
-    private TextView tvDetalhesActivityCidade;
-    private TextView tvDetalhesActivityTemp;
-    private ImageView ivDetalhesActivityClima;
-    private TextView tvDetalhesActivityClimaDesc;
-    private TextView tvDetalhesActivityMaxTemp;
-    private TextView tvDetalhesActivityMinTemp;
+    private LinearLayout llDescricaoDetalhesActivity;
+    private TextView sinopseDetalhesActivity;
+    private LinearLayout llAnoDetalhesActivity;
+    private TextView anoDetalhesActivity;
+    private LinearLayout llDuracaoDetalhesActivity;
+    private TextView duracaoDetalhesActivity;
+    private LinearLayout llGeneroDetalhesActivity;
+    private TextView generoDetalhesActivity;
+    private LinearLayout llDiretoresDetalhesActivity;
+    private TextView diretoresDetalhesActivity;
+    private LinearLayout llAtoresDetalhesActivity;
+    private TextView atoresDetalhesActivity;
+    private LinearLayout llPremiacoesDetalhesActivity;
+    private TextView premiacoesDetalhesActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +51,15 @@ public class DetalhesActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         assert extras != null;
 
-        cidade = extras.getParcelable(Constantes.ARG_CIDADE);
-        assert cidade != null;
+        filme = extras.getParcelable(Constantes.ARG_FILME);
+        assert filme != null;
+
+        boolean offline = extras.getBoolean(Constantes.ARG_OFFLINE);
+        assert filme != null;
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle(getString(R.string.detalhes_title, cidade.getName()));
+        toolbar.setTitle(getString(R.string.detalhes_title, filme.getTitle(), filme.getYear()));
 
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
@@ -57,15 +67,25 @@ public class DetalhesActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         progressBar = findViewById(R.id.pb_detalhes_activity);
-        tvDetalhesActivityCidade = findViewById(R.id.tv_detalhes_activity_cidade);
-        tvDetalhesActivityTemp = findViewById(R.id.tv_detalhes_activity_temp);
-        ivDetalhesActivityClima = findViewById(R.id.iv_detalhes_activity_clima);
-        tvDetalhesActivityClimaDesc = findViewById(R.id.tv_detalhes_activity_clima_desc);
-        tvDetalhesActivityMaxTemp = findViewById(R.id.tv_detalhes_activity_max_temp);
-        tvDetalhesActivityMinTemp = findViewById(R.id.tv_detalhes_activity_min_temp);
+        llDescricaoDetalhesActivity = findViewById(R.id.ll_descricao_detalhes_activity);
+        sinopseDetalhesActivity = findViewById(R.id.sinopse_detalhes_activity);
+        llAnoDetalhesActivity = findViewById(R.id.ll_ano_detalhes_activity);
+        anoDetalhesActivity = findViewById(R.id.ano_detalhes_activity);
+        llDuracaoDetalhesActivity = findViewById(R.id.ll_duracao_detalhes_activity);
+        duracaoDetalhesActivity = findViewById(R.id.duracao_detalhes_activity);
+        llGeneroDetalhesActivity = findViewById(R.id.ll_genero_detalhes_activity);
+        generoDetalhesActivity = findViewById(R.id.genero_detalhes_activity);
+        llDiretoresDetalhesActivity = findViewById(R.id.ll_diretores_detalhes_activity);
+        diretoresDetalhesActivity = findViewById(R.id.diretores_detalhes_activity);
+        llAtoresDetalhesActivity = findViewById(R.id.ll_atores_detalhes_activity);
+        atoresDetalhesActivity = findViewById(R.id.atores_detalhes_activity);
+        llPremiacoesDetalhesActivity = findViewById(R.id.ll_premiacoes_detalhes_activity);
+        premiacoesDetalhesActivity = findViewById(R.id.premiacoes_detalhes_activity);
 
         detalhesController = new DetalhesController(this);
-        detalhesController.obterDetalhesCidade(cidade.getId());
+
+        if (!offline)
+            detalhesController.obterDetalhesFilme(filme.getImdbID());
     }
 
     @Override
@@ -73,10 +93,12 @@ public class DetalhesActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_search_item, menu);
 
-        if (Utility.obterCidade(this, cidade.getId()) != null)
-            menu.getItem(POSICAO_MENU_DESFAVORITAR).setVisible(true);
-        else
-            menu.getItem(POSICAO_MENU_FAVORITAR).setVisible(true);
+        if (Utility.buscarFilme(this, filme.getImdbID()) != null) {
+            menu.getItem(POSICAO_MENU_SALVAR).setVisible(true);
+            menu.getItem(POSICAO_MENU_EXCLUIR).setVisible(true);
+        } else {
+            menu.getItem(POSICAO_MENU_SALVAR).setVisible(true);
+        }
 
         return true;
     }
@@ -87,13 +109,13 @@ public class DetalhesActivity extends AppCompatActivity {
             case android.R.id.home:
                 setResult(RESULT_OK);
                 finish();
-                return  true;
-            case R.id.action_favorite:
-                detalhesController.atualizarFavorito(cidade, true);
+                return true;
+            case R.id.action_salvar:
+                detalhesController.inserirFilme(filme);
                 setResult(RESULT_OK);
                 return true;
             case R.id.action_unfavorite:
-                detalhesController.atualizarFavorito(cidade, false);
+                detalhesController.removerFilme(filme.getImdbID());
                 setResult(RESULT_OK);
                 return true;
             default:
@@ -101,20 +123,50 @@ public class DetalhesActivity extends AppCompatActivity {
         }
     }
 
-    public void preencherDetalhes(Cidade cidade) {
-        this.cidade = cidade;
+    public void preencherDetalhes(MovieModel filme) {
+        this.filme = filme;
 
-        tvDetalhesActivityCidade.setText(cidade.getName());
-        tvDetalhesActivityTemp.setText(Utility.converterCelsiusKelvin(cidade.getMain().getTemp()));
-        tvDetalhesActivityMaxTemp.setText(Utility.converterCelsiusKelvin(cidade.getMain().getTemp_max()));
-        tvDetalhesActivityMinTemp.setText(Utility.converterCelsiusKelvin(cidade.getMain().getTemp_min()));
+        if (filme.getPlot() != null) {
+            sinopseDetalhesActivity.setText(filme.getPlot());
+        } else {
+            llDescricaoDetalhesActivity.setVisibility(View.GONE);
+        }
 
-        ClimaEnum climaEnum = ClimaEnum.valueOf(this, cidade.getWeather().get(0).getMain());
-        assert climaEnum != null;
+        if (filme.getReleased() != null) {
+            anoDetalhesActivity.setText(filme.getReleased());
+        } else {
+            llAnoDetalhesActivity.setVisibility(View.GONE);
+        }
 
-        tvDetalhesActivityClimaDesc.setText(climaEnum.getIdClima());
-        ivDetalhesActivityClima.setImageDrawable(ResourcesCompat.getDrawable(getResources(), climaEnum.getIdIcone(), null));
-        ivDetalhesActivityClima.setColorFilter(climaEnum.getIdCor());
+        if (filme.getRuntime() != null) {
+            duracaoDetalhesActivity.setText(filme.getRuntime());
+        } else {
+            llDuracaoDetalhesActivity.setVisibility(View.GONE);
+        }
+
+        if (filme.getGenre() != null) {
+            generoDetalhesActivity.setText(filme.getGenre());
+        } else {
+            llGeneroDetalhesActivity.setVisibility(View.GONE);
+        }
+
+        if (filme.getDirector() != null) {
+            diretoresDetalhesActivity.setText(filme.getPlot());
+        } else {
+            llDiretoresDetalhesActivity.setVisibility(View.GONE);
+        }
+
+        if (filme.getActors() != null) {
+            atoresDetalhesActivity.setText(filme.getPlot());
+        } else {
+            llAtoresDetalhesActivity.setVisibility(View.GONE);
+        }
+
+        if (filme.getAwards() != null) {
+            premiacoesDetalhesActivity.setText(filme.getPlot());
+        } else {
+            llPremiacoesDetalhesActivity.setVisibility(View.GONE);
+        }
 
         progressBar.setVisibility(View.GONE);
     }
