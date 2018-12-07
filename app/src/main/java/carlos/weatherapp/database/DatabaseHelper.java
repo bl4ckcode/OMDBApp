@@ -18,7 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "Title varchar NOT NULL, " +
                 "Year varchar NOT NULL," +
                 "Poster varchar NOT NULL, " +
-                "CONSTRAINT PK_OMBD_ID PRIMARY KEY (imdbId));");
+                "CONSTRAINT PK_IMBD_ID PRIMARY KEY (imdbId));");
 
         db.execSQL("CREATE TABLE Filmes(" +
                 "imdbId varchar NOT NULL, " +
@@ -32,7 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "Plot varchar NOT NULL, " +
                 "Awards varchar NOT NULL, " +
                 "Poster varchar NOT NULL, " +
-                "CONSTRAINT PK_OMBD_ID PRIMARY KEY (imdbId));");
+                "CONSTRAINT PK_IMBD_ID PRIMARY KEY (imdbId));");
     }
 
     @Override

@@ -96,13 +96,13 @@ public class DetalhesController {
 
         Utility.insert(Constantes.TABLE_FILMES_RESUMIDOS, contentValues, detalhesActivity);
 
-        contentValues.put(Colunas.RELEASED, movieModel.getYear());
-        contentValues.put(Colunas.RUNTIME, movieModel.getYear());
-        contentValues.put(Colunas.GENRE, movieModel.getYear());
-        contentValues.put(Colunas.DIRECTOR, movieModel.getYear());
-        contentValues.put(Colunas.ACTORS, movieModel.getYear());
-        contentValues.put(Colunas.PLOT, movieModel.getYear());
-        contentValues.put(Colunas.AWARDS, movieModel.getYear());
+        contentValues.put(Colunas.RELEASED, movieModel.getReleased());
+        contentValues.put(Colunas.RUNTIME, movieModel.getRuntime());
+        contentValues.put(Colunas.GENRE, movieModel.getGenre());
+        contentValues.put(Colunas.DIRECTOR, movieModel.getDirector());
+        contentValues.put(Colunas.ACTORS, movieModel.getActors());
+        contentValues.put(Colunas.PLOT, movieModel.getPlot());
+        contentValues.put(Colunas.AWARDS, movieModel.getAwards());
 
         Utility.insert(Constantes.TABLE_FILMES, contentValues, detalhesActivity);
 

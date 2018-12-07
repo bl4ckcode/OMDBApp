@@ -50,15 +50,15 @@ public class Utility {
     }
 
     public static MovieModel buscarFilme(Context context, String imdbId) {
-        MovieModel cidade = null;
+        MovieModel movieModel = null;
         DatabaseHelper dbHelper = new DatabaseHelper(context);
         SQLiteDatabase database = dbHelper.getReadableDatabase();
         Cursor cursor = database.query(Constantes.TABLE_FILMES, null,
-                Colunas.IMDB_ID + " = " + imdbId, null, null,
+                Colunas.IMDB_ID + " = " + "'" + imdbId + "'", null, null,
                 null, null);
 
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-            cidade = new MovieModel(cursor.getString(cursor.getColumnIndex(Colunas.IMDB_ID)),
+            movieModel = new MovieModel(cursor.getString(cursor.getColumnIndex(Colunas.IMDB_ID)),
                     cursor.getString(cursor.getColumnIndex(Colunas.TITLE)),
                     cursor.getString(cursor.getColumnIndex(Colunas.YEAR)),
                     cursor.getString(cursor.getColumnIndex(Colunas.RELEASED)),
@@ -74,6 +74,6 @@ public class Utility {
         cursor.close();
         database.close();
 
-        return cidade;
+        return movieModel;
     }
 }

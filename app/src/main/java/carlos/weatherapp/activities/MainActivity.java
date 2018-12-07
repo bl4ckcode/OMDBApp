@@ -113,7 +113,6 @@ public class MainActivity extends AppCompatActivity implements CarouselAdapter.O
         Intent intent = new Intent(MainActivity.this, DetalhesActivity.class);
         intent.putExtra(Constantes.ARG_FILME, Utility.buscarFilme(this, imdbId));
         startActivity(intent);
-        finish();
     }
 
     @Override
@@ -121,7 +120,6 @@ public class MainActivity extends AppCompatActivity implements CarouselAdapter.O
         Intent intent = new Intent(MainActivity.this, DetalhesActivity.class);
         intent.putExtra(Constantes.ARG_FILME, Utility.buscarFilme(this, imdbId));
         startActivity(intent);
-        finish();
     }
 
     private boolean isNetworkAvailable() {

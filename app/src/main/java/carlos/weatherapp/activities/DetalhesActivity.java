@@ -56,21 +56,6 @@ public class DetalhesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalhes);
 
-        progressBar = findViewById(R.id.pb_detalhes_activity);
-
-        detalhesController = new DetalhesController(this);
-
-        Bundle extras = getIntent().getExtras();
-        assert extras != null;
-
-        if (extras.containsKey(Constantes.ARG_IMBD_ID)) {
-            progressBar.setVisibility(View.VISIBLE);
-            detalhesController.obterDetalhesFilme(extras.getString(Constantes.ARG_IMBD_ID));
-        } else if (extras.containsKey(Constantes.ARG_FILME)) {
-            offline = true;
-            preencherDetalhes((MovieModel) extras.getParcelable(ARG_FILME));
-        }
-
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -78,6 +63,10 @@ public class DetalhesActivity extends AppCompatActivity {
         assert actionBar != null;
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        progressBar = findViewById(R.id.pb_detalhes_activity);
+
+        detalhesController = new DetalhesController(this);
 
         posterDetalhes = findViewById(R.id.poster_detalhes_activity);
         llDescricaoDetalhesActivity = findViewById(R.id.ll_descricao_detalhes_activity);
@@ -94,6 +83,17 @@ public class DetalhesActivity extends AppCompatActivity {
         atoresDetalhesActivity = findViewById(R.id.atores_detalhes_activity);
         llPremiacoesDetalhesActivity = findViewById(R.id.ll_premiacoes_detalhes_activity);
         premiacoesDetalhesActivity = findViewById(R.id.premiacoes_detalhes_activity);
+
+        Bundle extras = getIntent().getExtras();
+        assert extras != null;
+
+        if (extras.containsKey(Constantes.ARG_IMBD_ID)) {
+            progressBar.setVisibility(View.VISIBLE);
+            detalhesController.obterDetalhesFilme(extras.getString(Constantes.ARG_IMBD_ID));
+        } else if (extras.containsKey(Constantes.ARG_FILME)) {
+            offline = true;
+            preencherDetalhes((MovieModel) extras.getParcelable(ARG_FILME));
+        }
     }
 
     @Override
