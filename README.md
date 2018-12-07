@@ -33,3 +33,13 @@ Alguns elementos de interface podem ser melhorados em termos de dinamicidade do 
 * PREVIEW:
 
 ![alt text](https://lh3.googleusercontent.com/sEW1Shkbd3SLCHdjgrr5su3g-oDj17goLjh-qltzi2PB0qTcZ2dj5ddMk2taQ7tQUv7CR1qgPmAnFM97b63SFg=w1600-h744-rw)
+
+![alt text](https://lh3.googleusercontent.com/Hq6n0tI7c_txCfWuXflyerKwUqoBz_hzMfMhsTryfIrzCedruU4IeBSKucnHrJFSGv8zPA5Ta_ybwaKPL3UaMA=w1600-h744-rw)
+
+![alt text](https://lh3.googleusercontent.com/P4TuC-C1lapbpPyYW8qWFkYbXLzY5vebI-PLAage-geBvubG8OPh_0iaLIz9uVZKlGV1QynIE7hrgulPqVuq8w=w1600-h744-rw)
+
+![alt text](https://lh5.googleusercontent.com/_MSQb6Is7Jn_49jzpvdU6I0w1guT57oFIlbrZLZeiDPzk-Vf9_AU5yIphv93ATAfehZItHWOh6ROokgGdzWNig=w1600-h744-rw)
+
+![alt text](https://lh4.googleusercontent.com/PKfOg6IkbJ9rRtcBXrJnhYEKRKmlBwGscAbWaLXT6wgqvi68UpTZcFps1RuX_8Qe1rFOaiUMuDyk9k86C62JYg=w1600-h744-rw)
+
+![alt text](https://lh5.googleusercontent.com/6GknIgtWY9-5uKA0jmKu0m3zfU1koF0y9j0cPRTvL2hd831sN_CX3CA-bHix2sue2H2dWN7EO1FR3o5vzfrNGg=w1600-h744-rw)
