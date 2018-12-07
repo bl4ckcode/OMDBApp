@@ -1,5 +1,6 @@
 package carlos.weatherapp.activities;
 
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+
+import java.io.File;
 
 import carlos.weatherapp.R;
 import carlos.weatherapp.controllers.DetalhesController;
@@ -135,6 +138,9 @@ public class DetalhesActivity extends AppCompatActivity {
 
         if (!offline) {
             Picasso.get().load(filme.getPoster()).into(posterDetalhes);
+        } else {
+            posterDetalhes.setImageBitmap(BitmapFactory.decodeFile(getFilesDir().getAbsolutePath()
+                    + File.separator + filme.getImdbID() + ".jpg"));
         }
 
         if (filme.getPlot() != null) {
