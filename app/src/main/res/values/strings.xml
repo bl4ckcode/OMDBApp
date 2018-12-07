@@ -3,20 +3,32 @@
     <string name="action_search">Procurar</string>
     <string name="action_unfavorite">Excluir</string>
 
-    <string name="app_name">Zup Omdb App</string>
+    <string name="app_name">Zup OMDb App</string>
+
+    <string name="main_title">Meus Filmes</string>
 
     <string name="content_descriptor_icone_clima">Imagem que representa o poster do filme</string>
 
-    <string name="detalhes_title">%1$s (%1$d)</string>
+    <string name="detalhes_title">%1$s (%2$d)</string>
 
     <string name="mensagem_erro_requisicao_pesquisa">Não foi possível resultados para este filme, tentando novamente…</string>
     <string name="mensagem_erro_requisicao_detalhes">Não foi possível obter os detalhes do filme, tentando novamente…</string>
-    <string name="mensagem_lista_filmes_vazia">Parece que você ainda não salvou nenhum filme…</string>
+    <string name="mensagem_lista_filmes_vazia">Parece que você ainda não salvou nenhum filme… \n clique no ícone de pesquisa para começar!</string>
 
     <string name="search_hint">Digite o título do filme…</string>
 
-    <string name="pesquisar_title">Pesquisar</string>
+    <string name="pesquisar_title">Pesquisar filmes</string>
 
     <string name="url_title_search">http://www.omdbapi.com/?s=%1$s&amp;apikey=c7a0fb60</string>
     <string name="url_get_movie">http://www.omdbapi.com/?i=%1$s&amp;apikey=c7a0fb60</string>
+
+    <string name="premiacoes">Premiações</string>
+    <string name="atores">Ator(es)</string>
+    <string name="diretores">Diretor(es)</string>
+    <string name="genero">Genero</string>
+    <string name="duracao">Duração</string>
+    <string name="ano">Ano</string>
+    <string name="titulo">Título</string>
+    <string name="mensagem_salvo">Filme salvo com sucesso!</string>
+    <string name="mensagem_excluido">Filme excluído com sucesso!</string>
 </resources>

@@ -3,11 +3,13 @@ package carlos.weatherapp.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class SearchModel implements Parcelable {
     private List<ShortMovieModel> search;
+    @SerializedName("totalResults")
     private int totalResults;
     private Boolean response;
 

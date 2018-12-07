@@ -1,13 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="carlos.weatherapp.activities.MainActivity">
 
     <include layout="@layout/toolbar" />
+
+    <RelativeLayout
+        android:id="@+id/rl_lista_vazia_main_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/imView_main_activity"
+            android:layout_width="64dp"
+            android:layout_height="128dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_lista_vazia" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imView_main_activity"
+            android:layout_margin="20dp"
+            android:gravity="center"
+            android:textColor="@android:color/darker_gray"
+            android:text="@string/mensagem_lista_filmes_vazia" />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,8 +47,8 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_main_activity"
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
     </LinearLayout>
 </LinearLayout>

@@ -12,7 +12,6 @@
     <item
         android:id="@+id/action_salvar"
         android:icon="@drawable/ic_save_"
-        android:iconTint="@android:color/white"
         android:menuCategory="secondary"
         android:title="@string/action_favorite"
         android:visible="false"
@@ -21,7 +20,6 @@
     <item
         android:id="@+id/action_unfavorite"
         android:icon="@drawable/ic_delete"
-        android:iconTint="@android:color/white"
         android:menuCategory="secondary"
         android:title="@string/action_unfavorite"
         android:visible="false"

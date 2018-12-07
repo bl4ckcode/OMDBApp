@@ -8,9 +8,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import carlos.weatherapp.R;
 import carlos.weatherapp.controllers.DetalhesController;
@@ -18,16 +22,20 @@ import carlos.weatherapp.models.MovieModel;
 import carlos.weatherapp.util.Constantes;
 import carlos.weatherapp.util.Utility;
 
+import static carlos.weatherapp.util.Constantes.ARG_FILME;
 import static carlos.weatherapp.util.Constantes.POSICAO_MENU_EXCLUIR;
 import static carlos.weatherapp.util.Constantes.POSICAO_MENU_SALVAR;
 
 public class DetalhesActivity extends AppCompatActivity {
+
+    private boolean offline = false;
 
     private MovieModel filme;
 
     private DetalhesController detalhesController;
 
     private ProgressBar progressBar;
+    private ImageView posterDetalhes;
     private LinearLayout llDescricaoDetalhesActivity;
     private TextView sinopseDetalhesActivity;
     private LinearLayout llAnoDetalhesActivity;
@@ -42,24 +50,27 @@ public class DetalhesActivity extends AppCompatActivity {
     private TextView atoresDetalhesActivity;
     private LinearLayout llPremiacoesDetalhesActivity;
     private TextView premiacoesDetalhesActivity;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalhes);
 
+        detalhesController = new DetalhesController(this);
+
         Bundle extras = getIntent().getExtras();
         assert extras != null;
 
-        filme = extras.getParcelable(Constantes.ARG_FILME);
-        assert filme != null;
+        if (extras.containsKey(Constantes.ARG_IMBD_ID)) {
+            detalhesController.obterDetalhesFilme(extras.getString(Constantes.ARG_IMBD_ID));
+        } else if (extras.containsKey(Constantes.ARG_FILME)) {
+            offline = true;
+            preencherDetalhes((MovieModel) extras.getParcelable(ARG_FILME));
+        }
 
-        boolean offline = extras.getBoolean(Constantes.ARG_OFFLINE);
-        assert filme != null;
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle(getString(R.string.detalhes_title, filme.getTitle(), filme.getYear()));
 
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
@@ -67,6 +78,7 @@ public class DetalhesActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         progressBar = findViewById(R.id.pb_detalhes_activity);
+        posterDetalhes = findViewById(R.id.poster_detalhes_activity);
         llDescricaoDetalhesActivity = findViewById(R.id.ll_descricao_detalhes_activity);
         sinopseDetalhesActivity = findViewById(R.id.sinopse_detalhes_activity);
         llAnoDetalhesActivity = findViewById(R.id.ll_ano_detalhes_activity);
@@ -81,11 +93,6 @@ public class DetalhesActivity extends AppCompatActivity {
         atoresDetalhesActivity = findViewById(R.id.atores_detalhes_activity);
         llPremiacoesDetalhesActivity = findViewById(R.id.ll_premiacoes_detalhes_activity);
         premiacoesDetalhesActivity = findViewById(R.id.premiacoes_detalhes_activity);
-
-        detalhesController = new DetalhesController(this);
-
-        if (!offline)
-            detalhesController.obterDetalhesFilme(filme.getImdbID());
     }
 
     @Override
@@ -93,12 +100,8 @@ public class DetalhesActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_search_item, menu);
 
-        if (Utility.buscarFilme(this, filme.getImdbID()) != null) {
-            menu.getItem(POSICAO_MENU_SALVAR).setVisible(true);
-            menu.getItem(POSICAO_MENU_EXCLUIR).setVisible(true);
-        } else {
-            menu.getItem(POSICAO_MENU_SALVAR).setVisible(true);
-        }
+        menu.getItem(POSICAO_MENU_SALVAR).setVisible(true);
+        menu.getItem(POSICAO_MENU_EXCLUIR).setVisible(true);
 
         return true;
     }
@@ -107,16 +110,15 @@ public class DetalhesActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                setResult(RESULT_OK);
                 finish();
                 return true;
             case R.id.action_salvar:
                 detalhesController.inserirFilme(filme);
-                setResult(RESULT_OK);
+                Toast.makeText(this, R.string.mensagem_salvo, Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.action_unfavorite:
                 detalhesController.removerFilme(filme.getImdbID());
-                setResult(RESULT_OK);
+                Toast.makeText(this, R.string.mensagem_excluido, Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -125,6 +127,12 @@ public class DetalhesActivity extends AppCompatActivity {
 
     public void preencherDetalhes(MovieModel filme) {
         this.filme = filme;
+
+        toolbar.setTitle(getString(R.string.detalhes_title, filme.getTitle(), filme.getYear()));
+
+        if (!offline) {
+            Picasso.get().load(filme.getPoster()).into(posterDetalhes);
+        }
 
         if (filme.getPlot() != null) {
             sinopseDetalhesActivity.setText(filme.getPlot());
@@ -151,19 +159,19 @@ public class DetalhesActivity extends AppCompatActivity {
         }
 
         if (filme.getDirector() != null) {
-            diretoresDetalhesActivity.setText(filme.getPlot());
+            diretoresDetalhesActivity.setText(filme.getDirector());
         } else {
             llDiretoresDetalhesActivity.setVisibility(View.GONE);
         }
 
         if (filme.getActors() != null) {
-            atoresDetalhesActivity.setText(filme.getPlot());
+            atoresDetalhesActivity.setText(filme.getActors());
         } else {
             llAtoresDetalhesActivity.setVisibility(View.GONE);
         }
 
         if (filme.getAwards() != null) {
-            premiacoesDetalhesActivity.setText(filme.getPlot());
+            premiacoesDetalhesActivity.setText(filme.getAwards());
         } else {
             llPremiacoesDetalhesActivity.setVisibility(View.GONE);
         }

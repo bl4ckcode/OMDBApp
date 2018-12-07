@@ -1,7 +1,5 @@
 package carlos.weatherapp.adapters;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,8 +9,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.io.IOException;
-import java.net.URL;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +19,7 @@ import carlos.weatherapp.models.ShortMovieModel;
 
 public class ListaFilmesResumidosAdapter extends RecyclerView.Adapter<ListaFilmesResumidosAdapter.ListaFilmesResumidosViewholder> {
     public interface OnItemClicked {
-        void onRecyclerViewItemClicked(int positon);
+        void onRecyclerViewItemClicked(ShortMovieModel shortMovieModel);
     }
 
     private List<ShortMovieModel> shortMovieModels = new ArrayList<>();
@@ -56,18 +54,17 @@ public class ListaFilmesResumidosAdapter extends RecyclerView.Adapter<ListaFilme
     @Override
     public void onBindViewHolder(@NonNull final ListaFilmesResumidosAdapter.ListaFilmesResumidosViewholder holder, int position) {
         ShortMovieModel shortMovieModel = shortMovieModels.get(position);
-        String title = shortMovieModel.getTitle() + "(" + shortMovieModel.getYear() + ")";
+        String title = shortMovieModel.getTitle() + " (" + shortMovieModel.getYear() + ")";
+
         holder.textView.setText(title);
-        try {
-            holder.imageView.setImageBitmap(BitmapFactory.decodeStream(new URL(shortMovieModel.getPoster())
-                    .openConnection().getInputStream()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        Picasso.get().load(shortMovieModel.getPoster()).into(holder.imageView);
+
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ListaFilmesResumidosAdapter.this.onItemClicked.onRecyclerViewItemClicked(holder.getAdapterPosition());
+                ListaFilmesResumidosAdapter.this.onItemClicked.onRecyclerViewItemClicked(
+                        shortMovieModels.get(holder.getAdapterPosition()));
             }
         });
     }

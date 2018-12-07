@@ -1,6 +1,8 @@
 package carlos.weatherapp.controllers;
 
 import android.content.ContentValues;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -8,7 +10,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import carlos.weatherapp.R;
 import carlos.weatherapp.activities.DetalhesActivity;
@@ -32,7 +42,9 @@ public class DetalhesController {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Gson gson = new Gson();
+                        Gson gson = new GsonBuilder()
+                                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
+                                .create();
                         MovieModel movieModel = gson.fromJson(response, MovieModel.class);
                         detalhesActivity.preencherDetalhes(movieModel);
                     }
@@ -49,7 +61,32 @@ public class DetalhesController {
         queue.add(stringRequest);
     }
 
-    public void inserirFilme(MovieModel movieModel) {
+    public void inserirFilme(final MovieModel movieModel) {
+        Target target = new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                File file = new File(detalhesActivity.getFilesDir(), movieModel.getImdbID() + ".jpg");
+
+                try (FileOutputStream out = new FileOutputStream(file)) {
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+            }
+        };
+
+        Picasso.get().load(movieModel.getPoster()).into(target);
+
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(Colunas.IMDB_ID, movieModel.getImdbID());

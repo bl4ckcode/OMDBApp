@@ -41,6 +41,7 @@
                 android:id="@+id/sinopse_title_detalhes_activity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@string/titulo"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -63,6 +64,7 @@
                 android:id="@+id/ano_title_detalhes_activity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@string/ano"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -85,6 +87,7 @@
                 android:id="@+id/duracao_title_detalhes_activity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@string/duracao"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -107,6 +110,7 @@
                 android:id="@+id/genero_title_detalhes_activity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@string/genero"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -129,6 +133,7 @@
                 android:id="@+id/diretores_title_detalhes_activity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@string/diretores"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -152,6 +157,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
+                android:text="@string/atores"
                 android:textStyle="bold" />
 
             <TextView
@@ -173,6 +179,7 @@
                 android:id="@+id/premiacoes_title_detalhes_activity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@string/premiacoes"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
