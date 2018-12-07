@@ -1,5 +1,6 @@
 package carlos.weatherapp.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import carlos.weatherapp.R;
 import carlos.weatherapp.adapters.ListaFilmesResumidosAdapter;
 import carlos.weatherapp.controllers.PesquisaController;
 import carlos.weatherapp.models.ShortMovieModel;
+import carlos.weatherapp.util.Constantes;
 
 public class PesquisarActivity extends AppCompatActivity implements ListaFilmesResumidosAdapter.OnItemClicked {
 
@@ -97,12 +99,19 @@ public class PesquisarActivity extends AppCompatActivity implements ListaFilmesR
     }
 
     @Override
-    public void onRecyclerViewItemClicked(int positon) {
-
+    public void onRecyclerViewItemClicked(ShortMovieModel shortMovieModel) {
+        Intent intent = new Intent(PesquisarActivity.this, DetalhesActivity.class);
+        intent.putExtra(Constantes.ARG_IMBD_ID, shortMovieModel.getImdbID());
+        startActivity(intent);
+        finish();
     }
 
     public void preencherLista(List<ShortMovieModel> movieModels) {
-        listaFilmesResumidosAdapter.setShortMovieModels(movieModels);
-        listaFilmesResumidosAdapter.notifyDataSetChanged();
+        if (movieModels != null && !movieModels.isEmpty()) {
+            listaFilmesResumidosAdapter.setShortMovieModels(movieModels);
+            listaFilmesResumidosAdapter.notifyDataSetChanged();
+        } else {
+
+        }
     }
 }

@@ -1,6 +1,9 @@
 package carlos.weatherapp.adapters;
 
+import android.app.Activity;
+import android.graphics.PorterDuff;
 import android.support.annotation.NonNull;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,11 +22,14 @@ public class ListaFilmesAdapter extends RecyclerView.Adapter<ListaFilmesAdapter.
         void onRecyclerViewItemClicked(int positon);
     }
 
+    private Activity activity;
+    private boolean backgroundEscuro = true;
     private List<ShortMovieModel> movieArrayList = new ArrayList<>();
     private OnItemClicked onItemClicked;
 
-    public ListaFilmesAdapter(OnItemClicked onItemClicked) {
+    public ListaFilmesAdapter(Activity activity, OnItemClicked onItemClicked) {
         this.onItemClicked = onItemClicked;
+        this.activity = activity;
     }
 
     class ListaFilmesViewholder extends RecyclerView.ViewHolder {
@@ -47,6 +53,10 @@ public class ListaFilmesAdapter extends RecyclerView.Adapter<ListaFilmesAdapter.
     public void onBindViewHolder(@NonNull final ListaFilmesAdapter.ListaFilmesViewholder holder, int position) {
         ShortMovieModel shortMovieModel = movieArrayList.get(position);
         String title = shortMovieModel.getTitle() + "(" + shortMovieModel.getYear() + ")";
+        holder.itemView.setBackgroundColor(
+                backgroundEscuro ? ResourcesCompat.getColor(activity.getResources(), R.color.background_grey, null) :
+                                   ResourcesCompat.getColor(activity.getResources(), R.color.background_default, null));
+        backgroundEscuro = !backgroundEscuro;
         holder.textViewFilme.setText(title);
         holder.textViewFilme.setOnClickListener(new View.OnClickListener() {
             @Override

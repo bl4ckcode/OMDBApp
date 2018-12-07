@@ -10,10 +10,10 @@
 
     <EditText
         android:id="@+id/edtText_pesquisar_activity"
-        android:hint="@string/search_hint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"/>
+        android:layout_margin="10dp"
+        android:hint="@string/search_hint" />
 
     <View
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_pesquisar_activity"
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" />
 </LinearLayout>

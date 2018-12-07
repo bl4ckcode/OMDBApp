@@ -3,7 +3,7 @@ package carlos.weatherapp.interfaces;
 import android.provider.BaseColumns;
 
 public interface Colunas extends BaseColumns {
-    String IMDB_ID = "imdbID";
+    String IMDB_ID = "imdbId";
     String TITLE = "Title";
     String YEAR = "Year";
     String RELEASED = "Released";

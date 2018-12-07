@@ -4,8 +4,8 @@ public class Constantes {
 
     private Constantes(){}
 
+    public static final String ARG_IMBD_ID = "imbdId";
     public static final String ARG_FILME = "filme";
-    public static final String ARG_OFFLINE = "offline";
 
     public static final String TABLE_FILMES_RESUMIDOS = "FilmesResumidos";
     public static final String TABLE_FILMES = "Filmes";

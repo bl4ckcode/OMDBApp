@@ -6,4 +6,5 @@
     <color name="icon_colors">#fff</color>
 
     <color name="background_grey">#1e535353</color>
+    <color name="background_default">#EEEE</color>
 </resources>

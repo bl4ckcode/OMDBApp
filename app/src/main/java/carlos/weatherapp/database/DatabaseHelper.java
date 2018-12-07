@@ -14,14 +14,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE FilmesResumidos(" +
-                "omdbId varchar NOT NULL, " +
+                "imdbId varchar NOT NULL, " +
                 "Title varchar NOT NULL, " +
                 "Year INTEGER NOT NULL," +
                 "Poster varchar NOT NULL, " +
-                "CONSTRAINT PK_OMBD_ID PRIMARY KEY (omdbId));");
+                "CONSTRAINT PK_OMBD_ID PRIMARY KEY (imdbId));");
 
         db.execSQL("CREATE TABLE Filmes(" +
-                "omdbId varchar NOT NULL, " +
+                "imdbId varchar NOT NULL, " +
                 "Title varchar NOT NULL, " +
                 "Year INTEGER NOT NULL," +
                 "Released varchar(15) NOT NULL, " +
@@ -32,7 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "Plot varchar NOT NULL, " +
                 "Awards varchar NOT NULL, " +
                 "Poster varchar NOT NULL, " +
-                "CONSTRAINT PK_OMBD_ID PRIMARY KEY (omdbId));");
+                "CONSTRAINT PK_OMBD_ID PRIMARY KEY (imdbId));");
     }
 
     @Override

@@ -1,6 +1,7 @@
 package carlos.weatherapp.adapters;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,16 +13,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import carlos.weatherapp.R;
+import carlos.weatherapp.controllers.MainController;
+import carlos.weatherapp.models.ShortMovieModel;
 
 public class CarouselAdapter extends RecyclerView.Adapter<CarouselAdapter.CarouselViewHolder>  {
     public interface OnItemClicked {
-        void onCarouselItemClicked(int positon);
+        void onCarouselItemClicked(String imdbId);
     }
 
+    private List<ShortMovieModel> movieArrayList = new ArrayList<>();
     private List<Bitmap> data = new ArrayList<>();
     private OnItemClicked onItemClicked;
+    private MainController mainController;
 
-    public CarouselAdapter(OnItemClicked onItemClicked) {
+    public CarouselAdapter(MainController mainController, OnItemClicked onItemClicked) {
+        this.mainController = mainController;
         this.onItemClicked = onItemClicked;
     }
 
@@ -48,7 +54,8 @@ public class CarouselAdapter extends RecyclerView.Adapter<CarouselAdapter.Carous
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CarouselAdapter.this.onItemClicked.onCarouselItemClicked(holder.getAdapterPosition());
+                CarouselAdapter.this.onItemClicked.onCarouselItemClicked(
+                        movieArrayList.get(holder.getAdapterPosition()).getImdbID());
             }
         });
     }
@@ -58,7 +65,12 @@ public class CarouselAdapter extends RecyclerView.Adapter<CarouselAdapter.Carous
         return data.size();
     }
 
-    public void setData(List<Bitmap> data) {
-        this.data = data;
+    public void setMovieArrayList(List<ShortMovieModel> movieArrayList) {
+        data.clear();
+        this.movieArrayList = movieArrayList;
+
+        for (ShortMovieModel shortMovieModel : movieArrayList) {
+            this.data.add(BitmapFactory.decodeFile(mainController.retornarCaminhoImagem(shortMovieModel.getImdbID())));
+        }
     }
 }
