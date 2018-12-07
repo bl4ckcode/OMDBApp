@@ -32,4 +32,4 @@ Alguns elementos de interface podem ser melhorados em termos de dinamicidade do 
 
 * PREVIEW:
 
-
+![alt text](https://lh3.googleusercontent.com/sEW1Shkbd3SLCHdjgrr5su3g-oDj17goLjh-qltzi2PB0qTcZ2dj5ddMk2taQ7tQUv7CR1qgPmAnFM97b63SFg=w1600-h744-rw)
