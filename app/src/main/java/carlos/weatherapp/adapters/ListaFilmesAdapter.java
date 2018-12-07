@@ -1,7 +1,6 @@
 package carlos.weatherapp.adapters;
 
 import android.app.Activity;
-import android.graphics.PorterDuff;
 import android.support.annotation.NonNull;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
@@ -19,7 +18,7 @@ import carlos.weatherapp.models.ShortMovieModel;
 
 public class ListaFilmesAdapter extends RecyclerView.Adapter<ListaFilmesAdapter.ListaFilmesViewholder> {
     public interface OnItemClicked {
-        void onRecyclerViewItemClicked(int positon);
+        void onRecyclerViewItemClicked(String imdbId);
     }
 
     private Activity activity;
@@ -61,7 +60,8 @@ public class ListaFilmesAdapter extends RecyclerView.Adapter<ListaFilmesAdapter.
         holder.textViewFilme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ListaFilmesAdapter.this.onItemClicked.onRecyclerViewItemClicked(holder.getAdapterPosition());
+                ListaFilmesAdapter.this.onItemClicked.onRecyclerViewItemClicked(
+                        movieArrayList.get(holder.getAdapterPosition()).getImdbID());
             }
         });
     }

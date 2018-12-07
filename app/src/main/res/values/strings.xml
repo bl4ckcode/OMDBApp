@@ -9,7 +9,7 @@
 
     <string name="content_descriptor_icone_clima">Imagem que representa o poster do filme</string>
 
-    <string name="detalhes_title">%1$s (%2$d)</string>
+    <string name="detalhes_title">%1$s (%2$s)</string>
 
     <string name="mensagem_erro_requisicao_pesquisa">Não foi possível resultados para este filme, tentando novamente…</string>
     <string name="mensagem_erro_requisicao_detalhes">Não foi possível obter os detalhes do filme, tentando novamente…</string>

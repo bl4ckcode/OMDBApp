@@ -7,12 +7,12 @@ import com.google.gson.annotations.SerializedName;
 
 public class ShortMovieModel implements Parcelable {
     private String title;
-    private int year;
+    private String year;
     @SerializedName("imdbID")
     private String imdbID;
     private String poster;
 
-    public ShortMovieModel(String title, int year, String imdbID, String poster) {
+    public ShortMovieModel(String title, String year, String imdbID, String poster) {
         this.title = title;
         this.year = year;
         this.imdbID = imdbID;
@@ -21,7 +21,7 @@ public class ShortMovieModel implements Parcelable {
 
     private ShortMovieModel(Parcel in) {
         title = in.readString();
-        year = in.readInt();
+        year = in.readString();
         imdbID = in.readString();
         poster = in.readString();
     }
@@ -29,7 +29,7 @@ public class ShortMovieModel implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(title);
-        dest.writeInt(year);
+        dest.writeString(year);
         dest.writeString(imdbID);
         dest.writeString(poster);
     }
@@ -59,11 +59,11 @@ public class ShortMovieModel implements Parcelable {
         this.title = title;
     }
 
-    public int getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(String year) {
         this.year = year;
     }
 

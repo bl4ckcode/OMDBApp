@@ -21,6 +21,15 @@
         android:background="@color/background_grey"
         android:orientation="vertical" />
 
+    <ProgressBar
+        android:id="@+id/pb_pesquisar_activity"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/colorPrimary"
+        android:progressTint="@color/colorPrimary"
+        android:visibility="gone" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_pesquisar_activity"
         android:layout_width="match_parent"

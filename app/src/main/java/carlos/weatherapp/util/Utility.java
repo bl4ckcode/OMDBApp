@@ -38,7 +38,7 @@ public class Utility {
 
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
             shortMovieModels.add(new ShortMovieModel(cursor.getString(cursor.getColumnIndex(Colunas.TITLE)),
-                    cursor.getInt(cursor.getColumnIndex(Colunas.YEAR)),
+                    cursor.getString(cursor.getColumnIndex(Colunas.YEAR)),
                     cursor.getString(cursor.getColumnIndex(Colunas.IMDB_ID)),
                     cursor.getString(cursor.getColumnIndex(Colunas.POSTER))));
         }
@@ -60,7 +60,7 @@ public class Utility {
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
             cidade = new MovieModel(cursor.getString(cursor.getColumnIndex(Colunas.IMDB_ID)),
                     cursor.getString(cursor.getColumnIndex(Colunas.TITLE)),
-                    cursor.getInt(cursor.getColumnIndex(Colunas.YEAR)),
+                    cursor.getString(cursor.getColumnIndex(Colunas.YEAR)),
                     cursor.getString(cursor.getColumnIndex(Colunas.RELEASED)),
                     cursor.getString(cursor.getColumnIndex(Colunas.RUNTIME)),
                     cursor.getString(cursor.getColumnIndex(Colunas.GENRE)),

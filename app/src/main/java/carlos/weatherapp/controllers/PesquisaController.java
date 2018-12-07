@@ -10,22 +10,10 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 import carlos.weatherapp.R;
 import carlos.weatherapp.activities.PesquisarActivity;
-import carlos.weatherapp.models.MovieModel;
 import carlos.weatherapp.models.SearchModel;
-import carlos.weatherapp.models.ShortMovieModel;
 
 public class PesquisaController {
     private PesquisarActivity pesquisarActivity;
@@ -35,6 +23,8 @@ public class PesquisaController {
     }
 
     public void buscarFilmes(final String title) {
+        pesquisarActivity.updateLoading(false);
+
         RequestQueue queue = Volley.newRequestQueue(pesquisarActivity);
         String url = pesquisarActivity.getString(R.string.url_title_search, title);
 

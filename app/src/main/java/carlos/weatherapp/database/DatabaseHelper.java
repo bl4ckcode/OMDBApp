@@ -16,14 +16,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE FilmesResumidos(" +
                 "imdbId varchar NOT NULL, " +
                 "Title varchar NOT NULL, " +
-                "Year INTEGER NOT NULL," +
+                "Year varchar NOT NULL," +
                 "Poster varchar NOT NULL, " +
                 "CONSTRAINT PK_OMBD_ID PRIMARY KEY (imdbId));");
 
         db.execSQL("CREATE TABLE Filmes(" +
                 "imdbId varchar NOT NULL, " +
                 "Title varchar NOT NULL, " +
-                "Year INTEGER NOT NULL," +
+                "Year varchar NOT NULL," +
                 "Released varchar(15) NOT NULL, " +
                 "Runtime varchar(15) NOT NULL, " +
                 "Genre varchar NOT NULL, " +

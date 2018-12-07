@@ -1,6 +1,9 @@
 package carlos.weatherapp.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -57,9 +60,6 @@ public class MainActivity extends AppCompatActivity implements CarouselAdapter.O
 
         mainController = new MainController(this);
         mainController.buscarFilmesResumidos();
-
-        carouselAdapter = new CarouselAdapter(mainController, this);
-        listaFilmesAdapter = new ListaFilmesAdapter(this, this);
     }
 
     @Override
@@ -73,7 +73,8 @@ public class MainActivity extends AppCompatActivity implements CarouselAdapter.O
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_search_item, menu);
-        menu.getItem(POSICAO_MENU_PESQUISAR).setVisible(true);
+        if (isNetworkAvailable())
+            menu.getItem(POSICAO_MENU_PESQUISAR).setVisible(true);
         return true;
     }
 
@@ -90,6 +91,9 @@ public class MainActivity extends AppCompatActivity implements CarouselAdapter.O
     }
 
     public void preencherCarrousel(ArrayList<ShortMovieModel> filmesResumidos) {
+        carouselAdapter = new CarouselAdapter(mainController, this);
+        listaFilmesAdapter = new ListaFilmesAdapter(this, this);
+
         if (filmesResumidos.isEmpty()) {
             rlListaVazia.setVisibility(View.VISIBLE);
         } else {
@@ -113,7 +117,21 @@ public class MainActivity extends AppCompatActivity implements CarouselAdapter.O
     }
 
     @Override
-    public void onRecyclerViewItemClicked(int positon) {
-        picker.scrollToPosition(positon);
+    public void onRecyclerViewItemClicked(String imdbId) {
+        Intent intent = new Intent(MainActivity.this, DetalhesActivity.class);
+        intent.putExtra(Constantes.ARG_FILME, Utility.buscarFilme(this, imdbId));
+        startActivity(intent);
+        finish();
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager manager =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+        boolean isAvailable = false;
+        if (networkInfo != null && networkInfo.isConnected()) {
+            isAvailable = true;
+        }
+        return isAvailable;
     }
 }

@@ -20,7 +20,6 @@ import carlos.weatherapp.R;
 import carlos.weatherapp.controllers.DetalhesController;
 import carlos.weatherapp.models.MovieModel;
 import carlos.weatherapp.util.Constantes;
-import carlos.weatherapp.util.Utility;
 
 import static carlos.weatherapp.util.Constantes.ARG_FILME;
 import static carlos.weatherapp.util.Constantes.POSICAO_MENU_EXCLUIR;
@@ -57,12 +56,15 @@ public class DetalhesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalhes);
 
+        progressBar = findViewById(R.id.pb_detalhes_activity);
+
         detalhesController = new DetalhesController(this);
 
         Bundle extras = getIntent().getExtras();
         assert extras != null;
 
         if (extras.containsKey(Constantes.ARG_IMBD_ID)) {
+            progressBar.setVisibility(View.VISIBLE);
             detalhesController.obterDetalhesFilme(extras.getString(Constantes.ARG_IMBD_ID));
         } else if (extras.containsKey(Constantes.ARG_FILME)) {
             offline = true;
@@ -77,7 +79,6 @@ public class DetalhesActivity extends AppCompatActivity {
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        progressBar = findViewById(R.id.pb_detalhes_activity);
         posterDetalhes = findViewById(R.id.poster_detalhes_activity);
         llDescricaoDetalhesActivity = findViewById(R.id.ll_descricao_detalhes_activity);
         sinopseDetalhesActivity = findViewById(R.id.sinopse_detalhes_activity);
@@ -126,6 +127,8 @@ public class DetalhesActivity extends AppCompatActivity {
     }
 
     public void preencherDetalhes(MovieModel filme) {
+        progressBar.setVisibility(View.GONE);
+
         this.filme = filme;
 
         toolbar.setTitle(getString(R.string.detalhes_title, filme.getTitle(), filme.getYear()));

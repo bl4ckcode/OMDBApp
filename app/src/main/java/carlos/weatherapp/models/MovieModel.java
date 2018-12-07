@@ -9,7 +9,7 @@ public class MovieModel implements Parcelable {
     @SerializedName("imdbID")
     private String imdbID;
     private String title;
-    private int year;
+    private String year;
     private String released;
     private String runtime;
     private String genre;
@@ -19,7 +19,7 @@ public class MovieModel implements Parcelable {
     private String awards;
     private String poster;
 
-    public MovieModel(String imdbID, String title, int year, String released, String runtime, String genre, String director, String actors, String plot, String awards, String poster) {
+    public MovieModel(String imdbID, String title, String year, String released, String runtime, String genre, String director, String actors, String plot, String awards, String poster) {
         this.imdbID = imdbID;
         this.title = title;
         this.year = year;
@@ -36,7 +36,7 @@ public class MovieModel implements Parcelable {
     private MovieModel(Parcel in) {
         imdbID = in.readString();
         title = in.readString();
-        year = in.readInt();
+        year = in.readString();
         released = in.readString();
         runtime = in.readString();
         genre = in.readString();
@@ -51,7 +51,7 @@ public class MovieModel implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(imdbID);
         dest.writeString(title);
-        dest.writeInt(year);
+        dest.writeString(year);
         dest.writeString(released);
         dest.writeString(runtime);
         dest.writeString(genre);
@@ -95,11 +95,11 @@ public class MovieModel implements Parcelable {
         this.title = title;
     }
 
-    public int getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(String year) {
         this.year = year;
     }
 

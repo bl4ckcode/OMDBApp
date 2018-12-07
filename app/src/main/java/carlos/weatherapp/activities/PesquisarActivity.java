@@ -12,6 +12,8 @@ import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.util.List;
 import java.util.Timer;
@@ -27,6 +29,7 @@ public class PesquisarActivity extends AppCompatActivity implements ListaFilmesR
 
     private PesquisaController pesquisaController;
     private ListaFilmesResumidosAdapter listaFilmesResumidosAdapter;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,8 @@ public class PesquisarActivity extends AppCompatActivity implements ListaFilmesR
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.pesquisar_title);
+
+        progressBar = findViewById(R.id.pb_pesquisar_activity);
 
         EditText editText = findViewById(R.id.edtText_pesquisar_activity);
         editText.setVisibility(View.VISIBLE);
@@ -103,15 +108,28 @@ public class PesquisarActivity extends AppCompatActivity implements ListaFilmesR
         Intent intent = new Intent(PesquisarActivity.this, DetalhesActivity.class);
         intent.putExtra(Constantes.ARG_IMBD_ID, shortMovieModel.getImdbID());
         startActivity(intent);
-        finish();
     }
 
     public void preencherLista(List<ShortMovieModel> movieModels) {
+        updateLoading(true);
+
         if (movieModels != null && !movieModels.isEmpty()) {
             listaFilmesResumidosAdapter.setShortMovieModels(movieModels);
             listaFilmesResumidosAdapter.notifyDataSetChanged();
         } else {
-
+            Toast.makeText(this, "Não foi encontrado nenhum filme para o termo pesquisado!", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void updateLoading(final boolean hide) {
+        runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                progressBar.setVisibility(hide ? View.GONE : View.VISIBLE);
+            }
+        });
+
+
     }
 }

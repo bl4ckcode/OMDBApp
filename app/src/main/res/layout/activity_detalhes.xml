@@ -19,7 +19,7 @@
             android:layout_gravity="center"
             android:backgroundTint="@color/colorPrimary"
             android:progressTint="@color/colorPrimary"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <ImageView
             android:id="@+id/poster_detalhes_activity"
